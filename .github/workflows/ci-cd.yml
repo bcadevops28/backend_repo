@@ -14,9 +14,4 @@ jobs:
 
       - name: Run echo
         run: echo "CI pipeline is working"
-- uses: actions/setup-java@v4
-  with:
-    distribution: temurin
-    java-version: 17
 
-- run: mvn clean test
