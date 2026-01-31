@@ -14,4 +14,41 @@ jobs:
 
       - name: Run echo
         run: echo "CI pipeline is working"
+name: Backend CI with Sonar
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Spring Boot Jar
+        run: ./mvnw clean package -DskipTests
+
+      - name: Run Tests
+        run: ./mvnw test
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@v1
+        with:
+          projectKey: court-case-backend
+          organization: your-org
+          token: ${{ secrets.SONAR_TOKEN }}
+
 
