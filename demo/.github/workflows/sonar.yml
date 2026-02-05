@@ -1,0 +1,6 @@
+- name: Build and analyze
+  run: mvn verify sonar:sonar \
+    -Dsonar.projectKey=vetrii-vs_backend_repo \
+    -Dsonar.organization=vetrii-vs \
+    -Dsonar.host.url=https://sonarcloud.io \
+    -Dsonar.login=${{ secrets.SONAR_TOKEN }}
