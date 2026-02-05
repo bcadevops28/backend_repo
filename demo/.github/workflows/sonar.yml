@@ -1,4 +1,4 @@
-name: Build and Analyze (SonarCloud)
+name: SonarCloud Code Analysis
 
 on:
   push:
@@ -8,16 +8,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  sonar:
+  sonarcloud:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 17
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
