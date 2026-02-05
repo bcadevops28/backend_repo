@@ -1,6 +1,31 @@
-- name: Build and analyze
-  run: mvn verify sonar:sonar \
-    -Dsonar.projectKey=vetrii-vs_backend_repo \
-    -Dsonar.organization=vetrii-vs \
-    -Dsonar.host.url=https://sonarcloud.io \
-    -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+name: Build and analyze
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  sonar:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build and analyze with SonarCloud
+        run: mvn verify sonar:sonar \
+          -Dsonar.projectKey=vetrii-vs_backend_repo \
+          -Dsonar.organization=vetrii-vs \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
