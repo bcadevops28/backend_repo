@@ -9,11 +9,10 @@ on:
 
 jobs:
   sonarcloud:
-    name: SonarCloud Scan
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -22,19 +21,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2-
-
       - name: Build and analyze with SonarCloud
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B verify sonar:sonar \
+          mvn verify sonar:sonar \
             -Dsonar.projectKey=vetrii-vs_backend_repo \
             -Dsonar.organization=vetrii-vs \
             -Dsonar.host.url=https://sonarcloud.io
