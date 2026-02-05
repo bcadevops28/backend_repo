@@ -33,6 +33,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn clean verify sonar:sonar \
-            -Dsonar.projectKey=bcadevops28_backend_repo \
-            -Dsonar.organization=bcadevops28 \
+            -Dsonar.projectKey=vetrii-vs_backend_repo
+            -Dsonar.organization=vetrii-vs
             -Dsonar.host.url=https://sonarcloud.io
