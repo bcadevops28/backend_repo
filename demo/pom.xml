@@ -49,14 +49,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
-=======
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
->>>>>>> 3c05b6fa735cae5be9f32e8988f3152240e79c2b
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa-test</artifactId>
 			<scope>test</scope>
@@ -66,7 +58,6 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
 
 		<dependency>
 
@@ -85,40 +76,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
-=======
->>>>>>> 3c05b6fa735cae5be9f32e8988f3152240e79c2b
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-<<<<<<< HEAD
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-=======
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</path>
-					</annotationProcessorPaths>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
->>>>>>> 3c05b6fa735cae5be9f32e8988f3152240e79c2b
 			</plugin>
 		</plugins>
 	</build>
