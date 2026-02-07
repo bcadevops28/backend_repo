@@ -1,41 +1,40 @@
 package com.example.demo.service;
-
-import java.util.List;
-
+import com.example.demo.entity.CourtCase;
+import com.example.demo.entity.CaseType;
+import com.example.demo.repository.CourtCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Repository.CourtCaseRepository;
-import com.example.demo.model.CourtCase;
+import java.util.List;
+
+import static org.aspectj.lang.reflect.DeclareAnnotation.Kind.Type;
 
 @Service
 public class CourtCaseService {
-
     @Autowired
-    private CourtCaseRepository repo;
+    private CourtCaseRepository repository;
+
+    public CourtCase saveCase(CourtCase courtCase) {
+        return repository.save(courtCase);
+    }
 
     public List<CourtCase> getAllCases() {
-        return repo.findAll();
+        return repository.findAll();
+    }
+
+    public List<CourtCase> getCasesByType(CaseType type) {
+        return repository.findByCaseType(Type);
+    }
+
+    public void deleteCase(Long id) {
+        repository.deleteById(id);
     }
 
     public CourtCase createCase(CourtCase courtCase) {
-        return repo.save(courtCase);
+        return courtCase;
     }
 
     public CourtCase updateCase(Long id, CourtCase updatedCase) {
-        return repo.findById(id).map(c -> {
-            c.setCaseTitle(updatedCase.getCaseTitle());
-            c.setDescription(updatedCase.getDescription());
-            c.setCaseType(updatedCase.getCaseType());
-            c.setStatus(updatedCase.getStatus());
-            c.setDefenderName(updatedCase.getDefenderName());
-            c.setOffenderName(updatedCase.getOffenderName());
-            return repo.save(c);
-        }).orElseThrow(() -> new RuntimeException("Case not found"));
-    }
-
-
-    public void deleteCase(Long id) {
-        repo.deleteById(id);
+        return updatedCase;
     }
 }
