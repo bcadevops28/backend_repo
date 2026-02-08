@@ -1,11 +1,10 @@
-package com.example.demo.Service;
-import com.example.demo.Entity.CourtCase;
-import com.example.demo.Entity.CaseType;
-import com.example.demo.Repository.CourtCaseRepository;
+package com.example.demo.service;
+import com.example.demo.entity.CourtCase;
+import com.example.demo.entity.CaseType;
+import com.example.demo.repository.CourtCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.List;
 
 import static org.aspectj.lang.reflect.DeclareAnnotation.Kind.Type;
@@ -29,5 +28,13 @@ public class CourtCaseService {
 
     public void deleteCase(Long id) {
         repository.deleteById(id);
+    }
+
+    public CourtCase createCase(CourtCase courtCase) {
+        return courtCase;
+    }
+
+    public CourtCase updateCase(Long id, CourtCase updatedCase) {
+        return updatedCase;
     }
 }

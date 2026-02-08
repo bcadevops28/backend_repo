@@ -1,4 +1,8 @@
 package com.example.demo.model;
 
-public class CaseStatus {
+public enum CaseStatus {
+    OPEN,
+    IN_PROGRESS,
+    CLOSED
 }
+

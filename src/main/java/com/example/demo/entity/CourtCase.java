@@ -1,7 +1,14 @@
-package com.example.demo.Entity;
+package com.example.demo.entity;
+
+import com.example.demo.model.CaseStatus;
+
+
+
 import jakarta.persistence.*;
+
 @Entity
 public class CourtCase {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -12,11 +19,13 @@ public class CourtCase {
     private String offenderName;
 
     @Enumerated(EnumType.STRING)
-    private CaseType caseType;
+    private CaseType caseType;        // ✅ FIXED (field added)
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CaseStatus caseStatus;    // ✅ ENUM instead of String
 
-    // Getters and Setters
+    public CourtCase() {}
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -35,6 +44,6 @@ public class CourtCase {
     public CaseType getCaseType() { return caseType; }
     public void setCaseType(CaseType caseType) { this.caseType = caseType; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public CaseStatus getCaseStatus() { return caseStatus; }
+    public void setCaseStatus(CaseStatus caseStatus) { this.caseStatus = caseStatus; }
 }
