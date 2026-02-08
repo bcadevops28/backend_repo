@@ -1,5 +1,12 @@
 package com.example.demo.Repository;
 
+<<<<<<< HEAD
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.model.CourtCase;
+
+public interface CourtCaseRepository extends JpaRepository<CourtCase, Long> {
+}
+=======
 import com.example.demo.Entity.CourtCase;
 import org.aspectj.lang.reflect.DeclareAnnotation;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,3 +16,4 @@ public interface CourtCaseRepository extends JpaRepository<CourtCase, Long> {
     // Find cases by type (NORMAL or CRIMINAL)
     List<CourtCase> findByCaseType(DeclareAnnotation.Kind caseType);
 }
+>>>>>>> 3c05b6fa735cae5be9f32e8988f3152240e79c2b

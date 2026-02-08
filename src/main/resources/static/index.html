@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Court Case Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚖️ Court Case Management System</h1>
+            <p>Manage your court cases efficiently</p>
+        </header>
+
+        <main>
+            <!-- Form Section -->
+            <section class="form-section">
+                <h2>Add New Case</h2>
+                <div id="successMessage" class="alert alert-success" style="display:none;"></div>
+                <div id="errorMessage" class="alert alert-danger" style="display:none;"></div>
+                
+                <form id="caseForm" class="form-group">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="caseNumber">Case Number:</label>
+                            <input type="text" id="caseNumber" name="caseNumber" placeholder="e.g., CASE-2026-001" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="caseType">Case Type:</label>
+                            <select id="caseType" name="caseType" required>
+                                <option value="">Select Type</option>
+                                <option value="CRIMINAL">Criminal</option>
+                                <option value="CIVIL">Civil</option>
+                            </select>
+                        </div>                        <div class="form-col">
+                            <label for="defendantName">Defendant Name:</label>
+                            <input type="text" id="defendantName" name="defendantName" placeholder="Enter defendant name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="affendantName">Affendant Name:</label>
+                            <input type="text" id="affendantName" name="affendantName" placeholder="Enter affendant name" required>
+                        </div>                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="status">Status:</label>
+                            <select id="status" name="status" required>
+                                <option value="">Select Status</option>
+                                <option value="PENDING">Pending</option>
+                                <option value="IN_PROGRESS">In Progress</option>
+                                <option value="CLOSED">Closed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col full-width">
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description" placeholder="Enter case description..." rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Case</button>
+                    <button type="button" class="btn btn-secondary" id="resetBtn">Reset</button>
+                </form>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <h2>Filter Cases</h2>
+                <div class="filter-row">
+                    <select id="filterStatus" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="IN_PROGRESS">In Progress</option>
+                        <option value="CLOSED">Closed</option>
+                    </select>
+                    <select id="filterType" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="CRIMINAL">Criminal</option>
+                        <option value="CIVIL">Civil</option>
+                    </select>
+                    <button class="btn btn-info" id="refreshBtn">Refresh</button>
+                </div>
+            </section>
+
+            <!-- Cases List Section -->
+            <section class="cases-section">
+                <h2>Court Cases</h2>
+                <div id="statsContainer" class="stats-container">
+                    <div class="stat-card">
+                        <h3 id="totalCases">0</h3>
+                        <p>Total Cases</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="pendingCases">0</h3>
+                        <p>Pending</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="inProgressCases">0</h3>
+                        <p>In Progress</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="closedCases">0</h3>
+                        <p>Closed</p>
+                    </div>
+                </div>
+
+                <div id="loadingSpinner" class="loading" style="display:none;">
+                    <p>Loading cases...</p>
+                </div>
+
+                <div id="casesList" class="cases-list">
+                    <p class="no-cases">No cases found. Add a new case to get started!</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Court Case Management System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Case</h2>
+            <form id="editForm" class="form-group">
+                <input type="hidden" id="editCaseId">
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="editCaseNumber">Case Number:</label>
+                        <input type="text" id="editCaseNumber" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="editCaseType">Case Type:</label>
+                        <select id="editCaseType" required>
+                            <option value="CRIMINAL">Criminal</option>
+                            <option value="CIVIL">Civil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="editStatus">Status:</label>
+                        <select id="editStatus" required>
+                            <option value="PENDING">Pending</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="CLOSED">Closed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col full-width">
+                        <label for="editDescription">Description:</label>
+                        <textarea id="editDescription" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
