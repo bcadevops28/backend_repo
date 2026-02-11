@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.CourtCase;
 import com.example.demo.entity.CaseType;
+import com.example.demo.entity.CourtCase;
 import com.example.demo.service.CourtCaseService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +16,11 @@ import java.util.List;
 @RequestMapping("/api/cases")
 public class CourtCaseController {
 
-    @Autowired
-    private CourtCaseService service;
+    private final CourtCaseService service;
+
+    public CourtCaseController(CourtCaseService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<CourtCase> getAllCases() {
@@ -26,8 +28,9 @@ public class CourtCaseController {
     }
 
     @GetMapping("/type/{type}")
-    public List<CourtCase> getByType(@PathVariable CaseType type) {
-        return service.getCasesByType(type);
+    public List<CourtCase> getByType(@PathVariable String type) {
+        CaseType caseType = CaseType.valueOf(type.toUpperCase());
+        return service.getCasesByType(caseType);
     }
 
     @PostMapping
