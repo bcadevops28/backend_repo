@@ -29,19 +29,25 @@ public class CourtCaseController {
 
     @GetMapping("/type/{type}")
     public List<CourtCase> getByType(@PathVariable String type) {
-        CaseType caseType = CaseType.valueOf(type.toUpperCase());
-        return service.getCasesByType(caseType);
+        try {
+            CaseType caseType = CaseType.valueOf(type.toUpperCase());
+            return service.getCasesByType(caseType);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid case type: " + type + ". Valid types are: " + 
+                java.util.Arrays.toString(CaseType.values()));
+        }
     }
 
     @PostMapping
     public CourtCase createCase(@RequestBody CourtCase courtCase) {
-        return service.createCase(courtCase);
+        return service.saveCase(courtCase);
     }
 
     @PutMapping("/{id}")
     public CourtCase updateCase(@PathVariable Long id,
                                 @RequestBody CourtCase updatedCase) {
-        return service.updateCase(id, updatedCase);
+        updatedCase.setId(id);
+        return service.saveCase(updatedCase);
     }
 
     @DeleteMapping("/{id}")
