@@ -35,13 +35,14 @@ public class CourtCaseController {
 
     @PostMapping
     public CourtCase createCase(@RequestBody CourtCase courtCase) {
-        return service.createCase(courtCase);
+        return service.saveCase(courtCase);
     }
 
     @PutMapping("/{id}")
     public CourtCase updateCase(@PathVariable Long id,
                                 @RequestBody CourtCase updatedCase) {
-        return service.updateCase(id, updatedCase);
+        updatedCase.setId(id);
+        return service.saveCase(updatedCase);
     }
 
     @DeleteMapping("/{id}")

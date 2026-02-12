@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Repository.EmployeeRepository;
-import com.example.demo.model.Employee;
+import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.entity.Employee;
 
 @Service
 public class EmployeeService {
@@ -25,8 +25,9 @@ public class EmployeeService {
     public Employee updateEmployee(Long id, Employee updatedEmployee) {
         return repo.findById(id).map(e -> {
             e.setName(updatedEmployee.getName());
-            e.setRole(updatedEmployee.getRole());
             e.setEmail(updatedEmployee.getEmail());
+            e.setDepartment(updatedEmployee.getDepartment());
+            e.setPosition(updatedEmployee.getPosition());
             return repo.save(e);
         }).orElseThrow(() -> new RuntimeException("Employee not found"));
     }

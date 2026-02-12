@@ -1,10 +1,9 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
 @Entity
 public class CourtCase {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,10 +12,13 @@ public class CourtCase {
     private String description;
     private String defenderName;
     private String offenderName;
-    private String caseType;
+
+    @Enumerated(EnumType.STRING)
+    private CaseType caseType;
+
     private String status;
 
-    // Getters & Setters
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -32,8 +34,8 @@ public class CourtCase {
     public String getOffenderName() { return offenderName; }
     public void setOffenderName(String offenderName) { this.offenderName = offenderName; }
 
-    public String getCaseType() { return caseType; }
-    public void setCaseType(String caseType) { this.caseType = caseType; }
+    public CaseType getCaseType() { return caseType; }
+    public void setCaseType(CaseType caseType) { this.caseType = caseType; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
