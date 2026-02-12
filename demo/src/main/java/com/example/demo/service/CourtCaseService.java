@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.aspectj.lang.reflect.DeclareAnnotation.Kind.Type;
-
 @Service
 public class CourtCaseService {
     @Autowired
@@ -23,7 +21,7 @@ public class CourtCaseService {
     }
 
     public List<CourtCase> getCasesByType(CaseType type) {
-        return repository.findByCaseType(Type);
+        return repository.findByCaseType(type);
     }
 
     public void deleteCase(Long id) {
