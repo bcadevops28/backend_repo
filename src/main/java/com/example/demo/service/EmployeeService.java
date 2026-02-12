@@ -29,7 +29,7 @@ public class EmployeeService {
             e.setDepartment(updatedEmployee.getDepartment());
             e.setPosition(updatedEmployee.getPosition());
             return repo.save(e);
-        }).orElseThrow(() -> new RuntimeException("Employee not found"));
+        }).orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
     }
 
     public void deleteEmployee(Long id) {
