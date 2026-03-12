@@ -1,9 +1,6 @@
 package com.example.demo.entity;
 
 import com.example.demo.model.CaseStatus;
-
-
-
 import jakarta.persistence.*;
 
 @Entity
@@ -19,10 +16,10 @@ public class CourtCase {
     private String offenderName;
 
     @Enumerated(EnumType.STRING)
-    private CaseType caseType;        // ✅ FIXED (field added)
+    private CaseType caseType;
 
     @Enumerated(EnumType.STRING)
-    private CaseStatus caseStatus;    // ✅ ENUM instead of String
+    private CaseStatus caseStatus;
 
     public CourtCase() {}
 
