@@ -34,4 +34,5 @@ public class CourtCaseService {
     public void deleteCase(Long id) {
         repository.deleteById(id);
     }
+
 }
