@@ -10,9 +10,12 @@ import java.util.List;
 
 @Service
 public class CourtCaseService {
-
     @Autowired
     private CourtCaseRepository repository;
+
+    public CourtCase saveCase(CourtCase courtCase) {
+        return repository.save(courtCase);
+    }
 
     public List<CourtCase> getAllCases() {
         return repository.findAll();
@@ -22,17 +25,7 @@ public class CourtCaseService {
         return repository.findByCaseType(type);
     }
 
-    public CourtCase createCase(CourtCase courtCase) {
-        return repository.save(courtCase);
-    }
-
-    public CourtCase updateCase(Long id, CourtCase updatedCase) {
-        updatedCase.setId(id);
-        return repository.save(updatedCase);
-    }
-
     public void deleteCase(Long id) {
         repository.deleteById(id);
     }
-
 }
