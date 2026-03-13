@@ -2,15 +2,11 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repository.EmployeeRepository;
-<<<<<<< HEAD
 import com.example.demo.entity.Employee;
-=======
->>>>>>> df61a339390989ac3c1461f2d44bfe529e91d7f6
+import com.example.demo.repository.EmployeeRepository;
 
 @Service
 public class EmployeeService {
