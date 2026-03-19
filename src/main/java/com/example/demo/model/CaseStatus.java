@@ -5,4 +5,3 @@ public enum CaseStatus {
     IN_PROGRESS,
     CLOSED
 }
-

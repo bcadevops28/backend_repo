@@ -1,57 +1,46 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.CaseType;
 import com.example.demo.entity.CourtCase;
 import com.example.demo.service.CourtCaseService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = {
         "http://localhost:3000",
-        "https://frontend-repo-gold.vercel.app"
+        "https://your-frontend-url.vercel.app"
 })
 @RestController
 @RequestMapping("/api/cases")
 public class CourtCaseController {
 
-    private final CourtCaseService service;
+    @Autowired
+    private CourtCaseService courtCaseService;
 
-    public CourtCaseController(CourtCaseService service) {
-        this.service = service;
-    }
-
+    // ✅ GET ALL CASES
     @GetMapping
     public List<CourtCase> getAllCases() {
-        return service.getAllCases();
+        return courtCaseService.getAllCases();
     }
 
-    @GetMapping("/type/{type}")
-    public List<CourtCase> getByType(@PathVariable String type) {
-        try {
-            CaseType caseType = CaseType.valueOf(type.toUpperCase());
-            return service.getCasesByType(caseType);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid case type: " + type + ". Valid types are: " + 
-                java.util.Arrays.toString(CaseType.values()));
-        }
-    }
-
+    // ✅ ADD CASE
     @PostMapping
-    public CourtCase createCase(@RequestBody CourtCase courtCase) {
-        return service.saveCase(courtCase);
+    public CourtCase addCase(@RequestBody CourtCase courtCase) {
+        return courtCaseService.saveCase(courtCase);
     }
 
-    @PutMapping("/{id}")
-    public CourtCase updateCase(@PathVariable Long id,
-                                @RequestBody CourtCase updatedCase) {
-        updatedCase.setId(id);
-        return service.saveCase(updatedCase);
-    }
-
+    // ✅ DELETE CASE WITH PASSWORD
     @DeleteMapping("/{id}")
-    public void deleteCase(@PathVariable Long id) {
-        service.deleteCase(id);
+    public String deleteCase(@PathVariable Long id,
+                             @RequestParam String password) {
+
+        if (!password.equals("admin123")) {
+            throw new RuntimeException("❌ Invalid Password!");
+        }
+
+        courtCaseService.deleteCase(id);
+        return "✅ Case deleted successfully";
     }
 }
