@@ -24,6 +24,9 @@ public class CourtCaseService {
         return courtCaseRepository.save(courtCase);
     }
 
+    public CourtCase addCase(CourtCase courtCase) {
+        return courtCaseRepository.save(courtCase); // MUST return saved object
+    }
     // ✅ DELETE
     public void deleteCase(Long id) {
         courtCaseRepository.deleteById(id);
