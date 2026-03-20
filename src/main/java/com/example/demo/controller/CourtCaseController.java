@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = {
         "http://localhost:3000",
-        "https://frontend-repo-gold.vercel.app/"
+        "https://frontend-repo-gold.vercel.app"
 })
 @RestController
 @RequestMapping("/api/cases")
