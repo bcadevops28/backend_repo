@@ -13,8 +13,7 @@ public class CorsConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins(
                         "https://frontend-repo-gold.vercel.app",
-                        "http://localhost:3000",
-                        "https://gentle-tree-03456fe00.1.azurestaticapps.net"
+                        "http://localhost:3000"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");

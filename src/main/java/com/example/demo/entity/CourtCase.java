@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class CourtCase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String caseTitle;
