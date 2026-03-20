@@ -9,7 +9,7 @@ public class CourtCase {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private String caseTitle;
     private String description;
     private String defenderName;
