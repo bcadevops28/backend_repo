@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 public class CourtCase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "court_case_seq")
+    @SequenceGenerator(name = "court_case_seq", sequenceName = "court_case_sequence", allocationSize = 1)
     private Long id;
 
     private String caseTitle;
