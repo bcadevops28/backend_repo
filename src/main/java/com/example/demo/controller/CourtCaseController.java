@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = {
         "http://localhost:3000",
-        "https://your-frontend-url.vercel.app"
+        "https://frontend-repo-gold.vercel.app/"
 })
 @RestController
 @RequestMapping("/api/cases")
@@ -20,30 +20,34 @@ public class CourtCaseController {
     @Autowired
     private CourtCaseService courtCaseService;
 
-    // GET ALL
+    // ✅ GET ALL
     @GetMapping
     public List<CourtCase> getAllCases() {
         return courtCaseService.getAllCases();
     }
 
-    // ADD CASE
+    // ✅ ADD
     @PostMapping
-    public ResponseEntity<CourtCase> addCase(@RequestBody CourtCase courtCase) {
-        CourtCase saved = courtCaseService.addCase(courtCase);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<?> addCase(@RequestBody CourtCase courtCase) {
+        try {
+            CourtCase saved = courtCaseService.addCase(courtCase);
+            return ResponseEntity.ok(saved);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("❌ ERROR: " + e.getMessage());
+        }
     }
 
-    // DELETE CASE
+    // ✅ DELETE
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCase(
-            @PathVariable Long id,
-            @RequestParam String password) {
+    public ResponseEntity<?> deleteCase(@PathVariable Long id,
+                                        @RequestParam String password) {
 
         if (!password.equals("admin123")) {
-            return ResponseEntity.status(403).body("Invalid Password");
+            return ResponseEntity.badRequest().body("❌ Invalid Password");
         }
 
         courtCaseService.deleteCase(id);
-        return ResponseEntity.ok("Case deleted successfully");
+        return ResponseEntity.ok("✅ Deleted");
     }
 }
