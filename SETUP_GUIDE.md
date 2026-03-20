@@ -251,7 +251,7 @@ java -jar target/demo-0.0.1-SNAPSHOT.jar
 ### Port Already in Use
 If port 8080 is already in use:
 ```bash
-# Change port in application.properties
+# Change port in application-prod.properties
 server.port=8081
 ```
 
