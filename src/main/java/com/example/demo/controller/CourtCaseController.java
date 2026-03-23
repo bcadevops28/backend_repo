@@ -29,28 +29,37 @@ public class CourtCaseController {
             CourtCase saved = courtCaseService.addCase(courtCase);
             return ResponseEntity.ok(saved);
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body("❌ ERROR: " + e.getMessage());
         }
     }
 
+    // ✅ DELETE (POST instead of DELETE for Azure)
     @PostMapping("/delete/{id}")
     public ResponseEntity<?> deleteCase(@PathVariable Long id,
                                         @RequestParam String password) {
 
-        if (!password.equals("admin123")) {
+        if (!"admin123".equals(password)) {   // ✅ safer comparison
             return ResponseEntity.badRequest().body("❌ Invalid Password");
+        }
+
+        CourtCase existing = courtCaseService.getById(id);
+        if (existing == null) {
+            return ResponseEntity.notFound().build();
         }
 
         courtCaseService.deleteCase(id);
         return ResponseEntity.ok("🗑️ Deleted");
     }
-    // ✅ UPDATE
+
+    // ✅ UPDATE (POST instead of PUT for Azure)
     @PostMapping("/update/{id}")
-    public ResponseEntity<?> updateCase(@PathVariable Long id, @RequestBody CourtCase courtCase) {
+    public ResponseEntity<?> updateCase(@PathVariable Long id,
+                                        @RequestBody CourtCase courtCase) {
         try {
             CourtCase existing = courtCaseService.getById(id);
-            if (existing == null) return ResponseEntity.notFound().build();
+            if (existing == null) {
+                return ResponseEntity.notFound().build();
+            }
 
             existing.setCaseTitle(courtCase.getCaseTitle());
             existing.setDescription(courtCase.getDescription());
@@ -66,5 +75,4 @@ public class CourtCaseController {
             return ResponseEntity.badRequest().body("❌ ERROR: " + e.getMessage());
         }
     }
-    }
-
+}
