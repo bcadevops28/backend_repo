@@ -27,9 +27,6 @@ public class CourtCaseService {
     }
 
     @Transactional
-    public void deleteCase(Long id) {
-        courtCaseRepository.deleteById(id);
-    }
     public CourtCase getById(Long id) {
         return courtCaseRepository.findById(id).orElse(null);
     }
