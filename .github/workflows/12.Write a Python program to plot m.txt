@@ -1,0 +1,23 @@
+12.Write a Python program to plot multiple data series on the same graph using Matplotlib (legend, grid, styles, markers).
+
+
+import matplotlib.pyplot as plt
+
+students = ["Alice", "Bob", "Charlie", "David"]
+math_marks = [85, 78, 92, 88]
+science_marks = [80, 82, 89, 90]
+english_marks = [90, 85, 95, 92]
+
+plt.plot(x, math_marks, marker='o', linestyle='-', color='blue', label='Math')
+plt.plot(x, science_marks, marker='s', linestyle='--', color='red', label='Science')
+plt.plot(x, english_marks, marker='^', linestyle='-.', color='green', label='English')
+
+plt.xticks(x, students)
+
+plt.xlabel("Students")
+plt.ylabel("Marks")
+plt.title("Comparison of Marks Across Subjects")
+plt.grid(True)
+plt.legend()
+
+plt.show()

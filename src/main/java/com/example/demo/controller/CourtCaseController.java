@@ -49,5 +49,24 @@ public class CourtCaseController {
 
         courtCaseService.deleteCase(id);
         return ResponseEntity.ok("✅ Deleted");
+
+    }
+    // ✅ UPDATE
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateCase(@PathVariable Long id, @RequestBody CourtCase courtCase) {
+        try {
+            CourtCase existing = courtCaseService.getById(id);
+            if (existing == null) return ResponseEntity.notFound().build();
+            existing.setCaseTitle(courtCase.getCaseTitle());
+            existing.setDescription(courtCase.getDescription());
+            existing.setDefenderName(courtCase.getDefenderName());
+            existing.setOffenderName(courtCase.getOffenderName());
+            existing.setCaseStatus(courtCase.getCaseStatus());
+            existing.setCaseType(courtCase.getCaseType());
+            CourtCase updated = courtCaseService.addCase(existing);
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("❌ ERROR: " + e.getMessage());
+        }
     }
 }

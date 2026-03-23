@@ -1,0 +1,993 @@
+1.Write a Python program to read a CSV file of and perform:
+• Display the DataFrame
+• Display index values and index array
+• Display complete information using info()
+• Display first 4 rows
+• Display last 4 rows
+• Sorting
+• Access a specific row using iloc()->stu.csv
+
+CODE:
+
+import pandas as pd
+
+df = pd.read_csv("C:\stu.csv")
+
+print("Full DataFrame:")
+print(df)
+
+print("\nIndex Values:")
+print(df.index)
+
+print("\nIndex Array:")
+print(df.index.values)
+
+print("\nDataFrame Info:")
+print(df.info())
+
+print("\nFirst 4 Rows:")
+print(df.head(4))
+
+print("\nLast 4 Rows:")
+print(df.tail(4))
+
+print("\nSorted by Mark:")
+print(df.sort_values(by="dept"))
+
+print("\nAccess Row using iloc (3rd row):")
+print(df.iloc[2])
+----------------------------------------------------------------
+2.Write a Python program to create a DataFrame and perform:
+• Add a new column “Gender”
+• Add a new row using user input
+• Drop a row
+• Drop a column
+• Column slicing
+• Multi-level indexing
+• Pivot table
+
+CODE:
+
+import pandas as pd
+
+data = {
+"Name": ["Arun", "Bala", "Charan", "Divya"],
+"Age": [20, 21, 19, 22],
+"Mark": [85, 78, 92, 88],
+"Dept": ["CSE", "IT", "ECE", "CSE"]
+}
+
+df = pd.DataFrame(data)
+
+print("Original DataFrame:")
+print(df)
+
+df["Gender"] = ["M", "M", "M", "F"]
+
+print("\nAfter Adding Gender Column:")
+print(df)
+
+print("\nEnter details to add new row:")
+
+name = input("Enter Name: ")
+age = int(input("Enter Age: "))
+mark = int(input("Enter Mark: "))
+dept = input("Enter Dept: ")
+gender = input("Enter Gender (M/F): ")
+
+new_row = pd.DataFrame({
+"Name": [name],
+"Age": [age],
+"Mark": [mark],
+"Dept": [dept],
+"Gender": [gender]
+})
+
+df = pd.concat([df, new_row], ignore_index=True)
+
+print("\nAfter Adding New Row:")
+print(df)
+
+df = df.drop(0).reset_index(drop=True)
+
+print("\nAfter Dropping First Row:")
+print(df)
+
+df = df.drop("Dept", axis=1)
+
+print("\nAfter Dropping Dept Column:")
+print(df)
+
+print("\nColumn Slicing (Name and Mark):")
+print(df[["Name", "Mark"]])
+
+df_multi = df.set_index(["Name", "Gender"])
+
+print("\nMulti-Level Indexing:")
+print(df_multi)
+
+pivot = pd.pivot_table(df, values="Mark", index="Gender", aggfunc="mean")
+
+print("\nPivot Table (Average Mark by Gender):")
+print(pivot)
+--------------------------------------------------------
+3.Write a Python program to create two Pandas Series using user input as follows:
+a.Monthly Sales Series (5 months)
+b.Student Marks Series (4 subjects: Maths, Science, English, Computer with labels)
+Perform the following operations:
+• Display both Series
+• Access the 3rd element from the Sales Series
+• Display sales values greater than a given threshold (user input)
+• Access marks of a specific subject (user input)
+• Display subjects with marks greater than 75
+
+CODE:
+
+import pandas as pd
+
+sales_series = pd.Series([1000, 2000, 1500, 3000, 2500])
+
+marks_series = pd.Series(
+[80, 70, 85, 90],
+index=["Maths", "Science", "English", "Computer"]
+)
+
+print("Monthly Sales Series:")
+print(sales_series)
+
+print("\nStudent Marks Series:")
+print(marks_series)
+
+print("\n3rd Month Sales:")
+print(sales_series.iloc[2])
+
+threshold = 1800
+print("\nSales greater than", threshold, ":")
+print(sales_series[sales_series > threshold])
+
+subject = "Maths"
+print("\nMaths Marks:")
+print(marks_series[subject])
+
+print("\nSubjects with Marks > 75:")
+print(marks_series[marks_series > 75])
+
+4.Write a Python program to create arrays using arange() and random functions based on user input. Also display size and shape, Display data type,Generate a zero array of same shape.
+
+CODE:
+
+import numpy as np
+
+start = 1
+end = 10
+step = 2
+
+arr1 = np.arange(start, end, step)
+
+print("\nArray using arange():")
+print(arr1)
+
+rows = 2
+cols = 3
+
+arr2 = np.random.randint(1, 100, size=(rows, cols))
+
+print("\nRandom Array:")
+print(arr2)
+
+print("\nSize of array:", arr2.size)
+print("Shape of array:", arr2.shape)
+
+print("\nData Type:", arr2.dtype)
+
+zero_arr = np.zeros(arr2.shape)
+
+print("\nZero Array of Same Shape:")
+print(zero_arr)
+
+5.Write a Python program to create two NumPy arrays using user input and perform the following operations:
+• Apply aggregate functions on the first array
+• Perform concatenation of both arrays
+• Display the reversed array of the first array
+• Perform slicing operations on the array
+
+CODE:
+
+import numpy as np
+
+arr1 = np.array([10, 20, 30, 40, 50])
+arr2 = np.array([60, 70, 80, 90, 100])
+
+print("Array 1:")
+print(arr1)
+
+print("\nArray 2:")
+print(arr2)
+
+print("\nAggregate Functions on Array 1:")
+print("Sum:", np.sum(arr1))
+print("Mean:", np.mean(arr1))
+print("Max:", np.max(arr1))
+print("Min:", np.min(arr1))
+
+concat_arr = np.concatenate((arr1, arr2))
+
+print("\nConcatenated Array:")
+print(concat_arr)
+
+rev_arr = arr1[::-1]
+
+print("\nReversed Array 1:")
+print(rev_arr)
+
+print("\nSlicing Operations on Array 1:")
+print("First 3 elements:", arr1[:3])
+print("Last 2 elements:", arr1[-2:])
+print("Middle elements:", arr1[1:4])
+
+6.Write a Python program to visualize student marks using a line chart with full Matplotlib (title, labels, legend, grid, colors, markers, linestyle).
+
+• Enter number of students
+• Enter student names
+• Enter marks dynamically
+
+CODE:
+
+import matplotlib.pyplot as plt
+
+num_students = 5
+students = ["Arun", "Bala", "Charan", "Divya", "Esha"]
+marks = [85, 78, 92, 88, 75]
+
+plt.plot(students, marks, color='blue', marker='o', linestyle='--', label='Marks')
+
+plt.title("Student Marks Analysis")
+plt.xlabel("Student Names")
+plt.ylabel("Marks")
+
+plt.grid(True)
+plt.legend()
+plt.show()
+
+7.Write a Python program to represent categorical data using a bar chart (colors, width, labels, title, legend, grid).
+Dataset : Titanic Dataset
+
+CODE:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("C:\titanic.csv")
+
+counts = df["Survived"].value_counts()
+
+plt.bar(counts.index.astype(str), counts.values, color=['green', 'red'], width=0.5, label="Passenger Count")
+
+plt.xlabel("Survival Status (0 = No, 1 = Yes)")
+plt.ylabel("Number of Passengers")
+plt.title("Titanic Survival Analysis")
+
+plt.grid(axis='y')
+
+plt.legend()
+
+plt.show()
+
+8.Write a Python program to implement K-Nearest Neighbor (KNN) classification.
+Dataset: Iris Dataset
+
+CODE:
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+data = load_iris()
+X = data.data
+y = data.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+knn = KNeighborsClassifier(n_neighbors=3)
+
+knn.fit(X_train, y_train)
+
+y_pred = knn.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+
+plt.scatter(X[:, 0], X[:, 1], c=y)
+plt.xlabel("Sepal Length")
+plt.ylabel("Sepal Width")
+plt.title("Iris Dataset Visualization")
+plt.show()
+
+9.Write a Python program to visualize relationship between two variables using a scatter plot (color, marker, size, grid, title, labels).
+Dataset : Height vs Weight Dataset
+
+CODE:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(r"C:\height.csv")
+
+plt.scatter(df["Height"], df["Weight"],
+color='blue', marker='o', s=60, label="Height vs Weight")
+
+plt.title("Height vs Weight Relationship")
+plt.xlabel("Height (cm)")
+plt.ylabel("Weight (kg)")
+
+plt.grid(True)
+
+plt.legend()
+
+plt.show()
+
+10.Write a Python program to represent data distribution using a pie chart (labels, colors, explode, percentage, shadow).
+Dataset : Titanic Dataset
+
+CODE:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(r"C:\titanic.csv")
+
+counts = df["Survived"].value_counts()
+
+plt.pie(counts.values,
+labels=counts.index.astype(str),
+colors=['red', 'green'],
+explode=[0, 0.1],
+autopct='%1.1f%%',
+shadow=True)
+
+plt.title("Titanic Survival Distribution")
+plt.show()
+
+11.Write a Python program to implement Linear Regression for prediction.
+Dataset : Salary Dataset
+
+CODE:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+df = pd.read_csv(r"C:\salary.csv")
+
+X = df[["YearsExperience", "Age", "EducationLevel"]]
+
+y = df["Salary"]
+
+model = LinearRegression()
+
+model.fit(X, y)
+
+y_pred = model.predict(X)
+
+accuracy = r2_score(y, y_pred)
+print(f"Model Accuracy (R² Score): {accuracy:.4f}")
+
+plt.scatter(df["YearsExperience"], y, label="Actual Data")
+plt.plot(df["YearsExperience"], y_pred, label="Regression Line")
+
+plt.xlabel("Years of Experience")
+plt.ylabel("Salary")
+plt.title("Salary Prediction using Linear Regression")
+
+plt.grid(True)
+plt.legend()
+
+plt.show()
+
+12.Write a Python program to plot multiple data series on the same graph using Matplotlib (legend, grid, styles, markers).
+
+• Enter number of data series
+• Enter values dynamically
+
+CODE:
+
+import matplotlib.pyplot as plt
+
+students = ["Alice", "Bob", "Charlie", "David"]
+x = range(len(students)) # X-axis positions
+
+math_marks = [85, 78, 92, 88]
+science_marks = [80, 82, 89, 90]
+english_marks = [90, 85, 95, 92]
+
+plt.plot(x, math_marks, marker='o', linestyle='-', color='blue', label='Math')
+plt.plot(x, science_marks, marker='s', linestyle='--', color='red', label='Science')
+plt.plot(x, english_marks, marker='^', linestyle='-.', color='green', label='English')
+
+plt.xticks(x, students)
+
+plt.xlabel("Students")
+plt.ylabel("Marks")
+plt.title("Comparison of Marks Across Subjects")
+plt.grid(True)
+plt.legend()
+
+plt.show()
+
+13.Write a Python program to load the House Prices Dataset and perform data preprocessing by:
+• Identifying missing or null values in the dataset
+• Removing or retaining records based on the presence of missing data
+• Replacing missing values with appropriate techniques (such as mean, median, or mode)
+Analyze and display the dataset before and after handling missing data.
+
+CODE:
+
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv(r"C:\houseprice.csv") # Replace with your path
+
+print("=== Original Dataset ===")
+print(df, "\n")
+
+print("=== Missing Values (True = Null) ===")
+print(df.isnull(), "\n")
+print("=== Count of Missing Values per Column ===")
+print(df.isnull().sum(),"\n")
+
+df_drop = df.dropna()
+print("=== Dataset after Dropping Rows with Missing Values ===")
+print(df_drop, "\n")
+
+df['Bedrooms'] = df['Bedrooms'].fillna(df['Bedrooms'].mode()[0])
+
+df['Bathrooms'] = df['Bathrooms'].fillna(df['Bathrooms'].median())
+
+df['Size(sqft)'] = df['Size(sqft)'].fillna(df['Size(sqft)'].mean())
+
+df['Price'] = df['Price'].fillna(0)
+
+print("=== Dataset after Replacing Missing Values ===")
+print(df, "\n")
+
+print("=== Summary Statistics ===")
+
+print(df.describe())
+
+14.Write a Python program to perform classification using Logistic Regression on Iris dataset.
+
+CODE:
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.linear_model import LogisticRegression
+
+iris = load_iris()
+x = iris.data
+y = iris.target
+
+x_train, x_test, y_train, y_test = train_test_split(
+x, y, test_size=0.2, random_state=0
+)
+
+model = LogisticRegression(max_iter=200)
+model.fit(x_train, y_train)
+
+prediction = model.predict(x_test)
+
+print("Accuracy:", accuracy_score(y_test, prediction))
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, prediction))
+
+print("\nClassification Report:")
+print(classification_report(y_test, prediction, target_names=iris.target_names))
+
+15.Write a Python program to implement Naïve Bayes classification.
+
+CODE:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+iris = load_iris()
+X = iris.data[:, 2:4] # use petal length and petal width for simple 2D plot
+y = iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size=0.2, random_state=0
+)
+
+
+model = GaussianNB()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names=iris.target_names))
+
+plt.figure(figsize=(7,5))
+
+plt.scatter(X_test[y_test==0,0], X_test[y_test==0,1], label='Setosa', color='red')
+plt.scatter(X_test[y_test==1,0], X_test[y_test==1,1], label='Versicolor', color='green')
+plt.scatter(X_test[y_test==2,0], X_test[y_test==2,1], label='Virginica', color='blue')
+
+plt.xlabel('Petal Length (cm)')
+plt.ylabel('Petal Width (cm)')
+plt.title('Naive Bayes Classification - Iris Test Data')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+16.Write a Python program to implement Ridge Regression techniques.
+Dataset: Housing Dataset
+
+CODE:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+
+df = pd.read_csv(r"C:\housing.csv") # replace with your path
+
+X = df[['Bedrooms', 'Bathrooms', 'Size(sqft)']]
+y = df['Price']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+ridge_model = Ridge(alpha=1.0) # alpha is regularization strength
+ridge_model.fit(X_train, y_train)
+
+y_pred_ridge = ridge_model.predict(X_test)
+
+print("=== Ridge Regression ===")
+print("Mean Squared Error:", mean_squared_error(y_test, y_pred_ridge))
+print("R2 Score:", r2_score(y_test, y_pred_ridge))
+
+plt.scatter(y_test, y_pred_ridge, color='blue')
+plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--') # diagonal line
+plt.xlabel('Actual Price')
+plt.ylabel('Predicted Price')
+plt.title('Ridge Regression: Actual vs Predicted Prices')
+plt.grid(True)
+plt.show()
+
+17.Write a Python program to implement Lasso Regression techniques.
+Dataset: Housing Dataset
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.linear_model import Lasso
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Load dataset
+df = pd.read_csv("housing.csv")   # your housing dataset
+
+# Split features and target
+X = df.drop('Price', axis=1)
+y = df['Price']
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Create Lasso model
+lasso_model = Lasso(alpha=0.1)
+
+# Train model
+lasso_model.fit(X_train, y_train)
+
+# Predict
+y_pred_lasso = lasso_model.predict(X_test)
+
+# Evaluation
+print("=== Lasso Regression ===")
+print("Mean Squared Error:", mean_squared_error(y_test, y_pred_lasso))
+print("R2 Score:", r2_score(y_test, y_pred_lasso))
+
+# Plot
+plt.scatter(y_test, y_pred_lasso, color='green')
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
+plt.xlabel('Actual Price')
+plt.ylabel('Predicted Price')
+plt.title('Lasso Regression: Actual vs Predicted Prices')
+plt.grid(True)
+plt.show()
+
+18.Write a Python program to perform basic web scraping using the BeautifulSoup library. Retrieve and parse the contents of a webpage, and extract relevant information such as product count, image sources, hyperlinks, headings, titles, and price details from the HTML structure.
+
+CODE:
+
+import requests
+from bs4 import BeautifulSoup
+
+url = "http://books.toscrape.com"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser') # Parse HTML
+
+title = soup.title.string
+print("=== Page Title ===")
+print(title)
+
+heading = soup.find('h1').text
+print("\n=== Main Heading ===")
+print(heading)
+
+first_link = soup.find('a').get('href')
+print("\n=== First Hyperlink ===")
+print(first_link)
+
+links = soup.find_all('a')
+print("\n=== Total Hyperlinks ===")
+print(len(links))
+
+first_img = soup.find('img').get('src')
+print("\n=== First Image Source ===")
+print(first_img)
+
+images = soup.find_all('img')
+print("\n=== Total Images ===")
+print(len(images))
+
+first_price = soup.find(class_='price_color').text
+print("\n=== First Product Price ===")
+print(first_price)
+
+products = soup.find_all(class_='product_pod')
+print("\n=== Total Products on Page ===")
+print(len(products))
+
+19.Write a Python program to apply K-Means clustering algorithm for grouping data points.
+Dataset: Iris Dataset
+
+CODE:
+
+from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+iris=load_iris()
+x=iris.data[:,:2]
+kmeans=KMeans(n_clusters=3)
+kmeans.fit(x)
+plt.scatter(x[:,0],x[:,1],c=kmeans.labels_)
+plt.scatter(kmeans.cluster_centers_[:,0],
+kmeans.cluster_centers_[:,1],
+s=200,marker='x')
+plt.title("Iris Clustering")
+plt.show()
+
+20.Write a Python program to implement Decision Tree classification/regression.
+Dataset: Heart Disease Dataset
+
+CODE:
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(r"C:\heart.csv") # Replace with your path
+
+X = df.drop('Target', axis=1)
+y = df['Target']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+dt_model = DecisionTreeClassifier(max_depth=4, random_state=42)
+dt_model.fit(X_train, y_train)
+
+y_pred = dt_model.predict(X_test)
+
+print("=== Accuracy ===")
+print(accuracy_score(y_test, y_pred))
+
+print("\n=== Confusion Matrix ===")
+print(confusion_matrix(y_test, y_pred))
+
+print("\n=== Classification Report ===")
+print(classification_report(y_test, y_pred))
+
+plt.figure(figsize=(15,8))
+plot_tree(dt_model, feature_names=X.columns, class_names=['No Disease','Disease'], filled=True, rounded=True)
+plt.title("Decision Tree - Heart Disease Classification")
+plt.show()
+
+21.Write a Python program to implement Decision Tree regression.
+Dataset: Heart Disease Dataset
+
+CODE:
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor, plot_tree
+from sklearn.metrics import mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+
+df = pd.read_csv(r"C:\heart.csv") # Replace with your path
+
+X = df.drop('Chol', axis=1) # All other columns except target
+y = df['Chol']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+dt_reg = DecisionTreeRegressor(max_depth=4, random_state=42)
+dt_reg.fit(X_train, y_train)
+
+y_pred = dt_reg.predict(X_test)
+
+print("=== Mean Squared Error (MSE) ===")
+print(mean_squared_error(y_test, y_pred))
+
+print("\n=== R-squared (R2 Score) ===")
+print(r2_score(y_test, y_pred))
+
+plt.figure(figsize=(15,8))
+plot_tree(dt_reg, feature_names=X.columns, filled=True, rounded=True)
+plt.title("Decision Tree Regression - Predicting Cholesterol")
+plt.show()
+
+22.Write a Python program to apply Min-Max scaling on Breast Cancer dataset.
+
+CODE:
+
+from sklearn.datasets import load_breast_cancer
+import pandas as pd
+
+cancer = load_breast_cancer()
+
+X = pd.DataFrame(cancer.data, columns=cancer.feature_names)
+y = cancer.target # 0 = malignant, 1 = benign
+
+print(X.head())
+
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler(feature_range=(0, 1))
+
+X_scaled = scaler.fit_transform(X)
+
+X_scaled = pd.DataFrame(X_scaled, columns=X.columns)
+
+print(X_scaled.head())
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size=0.2, random_state=42
+)
+
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+23.Write a Python program to apply Standard Scaling and Log Transformation on user dataset.
+Accept dataset dynamically, Compare before and after scaling
+
+CODE:
+
+STANDARD SCALING:
+
+from sklearn.preprocessing import StandardScaler
+
+data = {
+'Age': [16, 17, 16, 18, 17],
+'Math': [85, 70, 90, 60, 95],
+'English': [78, 88, 65, 75, 80],
+'Science': [92, 75, 85, 70, 98],
+'Attendance': [90, 80, 95, 85, 92]
+}
+
+df = pd.DataFrame(data)
+
+scaler = StandardScaler()
+X_sc = scaler.fit_transform(df)
+print(X_sc)
+
+LOG SCALING:
+
+import pandas as pd
+import numpy as np
+
+data = {'Income': [1000, 5000, 20000, 100000, 500000]}
+df = pd.DataFrame(data)
+
+df['Income_log'] = np.log(df['Income'] + 1) # add 1 to avoid log(0)
+
+print(df)
+
+24.Write a Python program to apply PCA on Breast Cancer dataset and visualize using scatter plot (with labels, colors, legend, grid).
+
+CODE:
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = load_breast_cancer()
+X = data.data
+y = data.target
+
+X_scaled = StandardScaler().fit_transform(X)
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+df = pd.DataFrame(X_pca, columns=["PC1", "PC2"])
+df["Cancer Type"] = y
+
+print(df.head())
+plt.scatter(df["PC1"], df["PC2"], c=df["Cancer Type"], cmap="coolwarm", edgecolor='k',s=150)
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.title("PCA of Breast Cancer Dataset")
+plt.show()
+
+Write a Python program to apply PCA with visualization on user dataset.
+Accept multi-dimensional dataset
+CODE:
+
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
+from sklearn.decomposition import PCA
+
+digits = load_digits()
+X = digits.data
+y = digits.target
+
+pca = PCA(n_components=10)
+X_reduced = pca.fit_transform(X)
+X_reconstructed = pca.inverse_transform(X_reduced)
+
+plt.figure(figsize=(6,3))
+plt.subplot(1,2,1)
+plt.title("Original")
+plt.imshow(X[0].reshape(8,8), cmap='gray')
+plt.axis('off')
+plt.subplot(1,2,2)
+plt.title("After PCA")
+plt.imshow(X_reconstructed[0].reshape(8,8), cmap='gray')
+plt.axis('off')
+
+plt.show()
+
+Write a Python program to apply Non-negative Matrix Factorization (NMF) on dataset.
+Dataset: Breast Cancer Dataset
+CODE:
+
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+from sklearn.decomposition import NMF
+from sklearn.preprocessing import MinMaxScaler
+cancer = load_breast_cancer()
+data = pd.DataFrame(cancer.data, columns=cancer.feature_names)
+scaler = MinMaxScaler()
+data_scaled = scaler.fit_transform(data)
+nmf = NMF(n_components=5, random_state=42)
+w = nmf.fit_transform(data_scaled)
+h = nmf.components_
+print("shape of w (Transformed data):", w.shape)
+print("shape of h (components matrix):", h.shape)
+print("First 3 rows of transformed data:")
+print(w[:3])
+
+27.Write a Python program to implement t-SNE algorithm and visualize output using scatter plot
+Accept dataset dynamically
+
+CODE:
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+
+data = np.array([
+[95, 88, 90, 92],
+[92, 85, 87, 89],
+[90, 82, 85, 88],
+[75, 65, 70, 68],
+[78, 68, 72, 70],
+[72, 62, 68, 65],
+[55, 40, 45, 42],
+[58, 42, 48, 45],
+[52, 38, 44, 40]
+])
+
+tsne = TSNE(n_components=2, perplexity=2, random_state=42)
+X_tsne = tsne.fit_transform(data)
+
+plt.scatter(X_tsne[:,0], X_tsne[:,1])
+plt.title("t-SNE: Student Performance Patterns")
+plt.xlabel("Dimension 1")
+plt.ylabel("Dimension 2")
+plt.show()
+
+28.Write a Python program to apply K-Means clustering on Breast Cancer dataset and analyze clusters.
+
+CODE:
+
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_breast_cancer
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+data = load_breast_cancer()
+X = data.data
+y = data.target # 0 = malignant, 1 = benign
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+kmeans = KMeans(n_clusters=2, random_state=42)
+kmeans.fit(X_scaled)
+clusters = kmeans.labels_
+
+print("First 10 Actual Labels: ", y[:10])
+print("First 10 Cluster Labels: ", clusters[:10])
+
+accuracy = np.sum(clusters == y) / len(y)
+accuracy_flipped = np.sum((1 - clusters) == y) / len(y)
+print("\nAccuracy:", accuracy)
+print("Flipped Accuracy:", accuracy_flipped)
+print("\nBetter Accuracy:", max(accuracy, accuracy_flipped))
+
+29.Logistic + Ridge Regression
+# Import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression, Ridge
+from sklearn.metrics import accuracy_score, mean_squared_error, r2_score
+
+# -------------------- LOGISTIC REGRESSION (Classification) --------------------
+
+# Load Iris dataset
+
+iris = load_iris()
+X = iris.data
+y = iris.target
+y_reg = iris.data[:, 0]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=3)
+X_train_r, X_test_r, y_train_r, y_test_r = train_test_split(X, y_reg, test_size=0.2, random_state=3)
+
+log_model = LogisticRegression(max_iter=200)
+ridge_model = Ridge(alpha=1.0)
+
+log_model.fit(X_train, y_train)
+ridge_model.fit(X_train_r, y_train_r)
+
+y_pred_log = log_model.predict(X_test)
+y_pred_ridge = ridge_model.predict(X_test_r)
+
+print("=== Logistic Regression ===")
+print("Accuracy:", accuracy_score(y_test, y_pred_log))
+
+print("\n=== Ridge Regression ===")
+print("Mean Squared Error:", mean_squared_error(y_test_r, y_pred_ridge))
+print("R2 Score:", r2_score(y_test_r, y_pred_ridge))
+
+# Plot
+plt.scatter(y_test_r, y_pred_ridge)
+plt.plot([y_test_r.min(), y_test_r.max()],
+         [y_test_r.min(), y_test_r.max()], 'r--')
+plt.xlabel("Actual Values")
+plt.ylabel("Predicted Values")
+plt.title("Ridge Regression: Actual vs Predicted")
+plt.grid()
+plt.show()
