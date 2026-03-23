@@ -67,4 +67,8 @@ public class CourtCaseController {
             return ResponseEntity.badRequest().body("❌ ERROR: " + e.getMessage());
         }
     }
+    @GetMapping("/test")
+    public String test() {
+        return "NO PASSWORD VERSION";
+    }
 }
