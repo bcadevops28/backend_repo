@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = {
-        "http://localhost:3000",
-        "https://frontend-repo-gold.vercel.app"
-})
 @RestController
 @RequestMapping("/api/cases")
 public class CourtCaseController {
