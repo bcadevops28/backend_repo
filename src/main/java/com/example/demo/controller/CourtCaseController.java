@@ -34,8 +34,7 @@ public class CourtCaseController {
         }
     }
 
-    // ✅ DELETE
-    @DeleteMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public ResponseEntity<?> deleteCase(@PathVariable Long id,
                                         @RequestParam String password) {
 
@@ -44,8 +43,7 @@ public class CourtCaseController {
         }
 
         courtCaseService.deleteCase(id);
-        return ResponseEntity.ok("✅ Deleted");
-
+        return ResponseEntity.ok("🗑️ Deleted");
     }
     // ✅ UPDATE
     @PostMapping("/update/{id}")
@@ -68,4 +66,5 @@ public class CourtCaseController {
             return ResponseEntity.badRequest().body("❌ ERROR: " + e.getMessage());
         }
     }
-}
+    }
+
