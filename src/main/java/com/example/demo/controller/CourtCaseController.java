@@ -33,24 +33,6 @@ public class CourtCaseController {
         }
     }
 
-    // ✅ DELETE (POST instead of DELETE for Azure)
-    @PostMapping("/delete/{id}")
-    public ResponseEntity<?> deleteCase(@PathVariable Long id,
-                                        @RequestParam String password) {
-
-        if (!"admin123".equals(password)) {   // ✅ safer comparison
-            return ResponseEntity.badRequest().body("❌ Invalid Password");
-        }
-
-        CourtCase existing = courtCaseService.getById(id);
-        if (existing == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        courtCaseService.deleteCase(id);
-        return ResponseEntity.ok("🗑️ Deleted");
-    }
-
     // ✅ UPDATE (POST instead of PUT for Azure)
     @PostMapping("/update/{id}")
     public ResponseEntity<?> updateCase(@PathVariable Long id,
