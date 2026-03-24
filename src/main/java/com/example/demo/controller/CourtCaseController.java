@@ -16,13 +16,16 @@ public class CourtCaseController {
     @Autowired
     private CourtCaseService courtCaseService;
 
+    // 🔐 Hardcoded password (you can change this)
+    private static final String ADMIN_PASSWORD = "admin123";
+
     // ✅ GET ALL
     @GetMapping
     public List<CourtCase> getAllCases() {
         return courtCaseService.getAllCases();
     }
 
-    // ✅ ADD
+    // ✅ ADD (no password needed)
     @PostMapping
     public ResponseEntity<?> addCase(@RequestBody CourtCase courtCase) {
         try {
@@ -32,8 +35,15 @@ public class CourtCaseController {
             return ResponseEntity.badRequest().body("❌ ERROR: " + e.getMessage());
         }
     }
+
+    // 🔐 DELETE WITH PASSWORD
     @PostMapping("/delete/{id}")
-    public ResponseEntity<?> deleteCase(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCase(@PathVariable Long id,
+                                        @RequestParam String password) {
+
+        if (!ADMIN_PASSWORD.equals(password)) {
+            return ResponseEntity.status(403).body("❌ Invalid Password");
+        }
 
         CourtCase existing = courtCaseService.getById(id);
         if (existing == null) {
@@ -43,11 +53,17 @@ public class CourtCaseController {
         courtCaseService.deleteCase(id);
         return ResponseEntity.ok("🗑️ Deleted");
     }
-    // ✅ UPDATE (POST instead of PUT for Azure)
+
+    // 🔐 UPDATE WITH PASSWORD
     @PostMapping("/update/{id}")
     public ResponseEntity<?> updateCase(@PathVariable Long id,
+                                        @RequestParam String password,
                                         @RequestBody CourtCase courtCase) {
         try {
+            if (!ADMIN_PASSWORD.equals(password)) {
+                return ResponseEntity.status(403).body("❌ Invalid Password");
+            }
+
             CourtCase existing = courtCaseService.getById(id);
             if (existing == null) {
                 return ResponseEntity.notFound().build();
@@ -67,8 +83,10 @@ public class CourtCaseController {
             return ResponseEntity.badRequest().body("❌ ERROR: " + e.getMessage());
         }
     }
+
+    // ✅ TEST
     @GetMapping("/test")
     public String test() {
-        return "NO PASSWORD VERSION";
+        return "PASSWORD PROTECTED VERSION";
     }
 }
